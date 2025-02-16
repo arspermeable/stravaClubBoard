@@ -5,6 +5,7 @@ import json
 import os  
 import time
 
+import strava
 
 if not all([st.secrets.strava.client_id,st.secrets.strava.client_secret]):
     raise ValueError("Missing Strava API credentials.")

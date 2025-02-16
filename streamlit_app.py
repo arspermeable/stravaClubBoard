@@ -5,6 +5,7 @@ import json
 import os  
 import time
 
+import strava
 
 if not all([st.secrets.strava.client_id,st.secrets.strava.client_secret]):
     raise ValueError("Missing Strava API credentials.")
@@ -71,16 +72,22 @@ def get_activities(access_token, after=None, before=None):  # Add after/before i
 
 # --- Main Program ---
 
-st.title("🎈 My new Strava app")
-
 st.markdown(
     """
-    # :circus_tent: Streamlit Activity Viewer for Strava
+    # Dashboard viewer for Strava
     This is a proof of concept of a [Streamlit](https://streamlit.io/) application that implements the [Strava API](https://developers.strava.com/) OAuth2 authentication flow.
     Based on the ideas found at [Aart Goossens Github](https://github.com/AartGoossens/streamlit-activity-viewer) and is licensed under an [MIT license](https://github.com/AartGoossens/streamlit-activity-viewer/blob/main/LICENSE).
 
-        """
+    """
 )
+
+strava_auth = strava.authenticate(header=Nune, stop_if_unauthenticated=False)
+# header=strava_header
+
+if strava_auth is None:
+    st.markdown("Click the \"Connect with Strava\" button at the top to login with your Strava account and get started.")
+    st.stop()
+
 
 st.write(
     "Hemos llegado al final! strava client_id: ",CLIENT_ID
