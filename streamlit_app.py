@@ -5,20 +5,12 @@ import json
 import os  
 import time
 
-CLIENT_ID = os.environ.get("STRAVA_CLIENT_ID")
-CLIENT_SECRET = os.environ.get("STRAVA_CLIENT_SECRET")
-REFRESH_TOKEN = os.environ.get("STRAVA_REFRESH_TOKEN")
 
-CLIENT_ID = "148919"
-CLIENT_SECRET = "905902bb785f877dd9e8932d19228378d6c74bc0"
-REFRESH_TOKEN = "74bd46d8a7a00f5066b3f25e75e995195f6d6385"
+if not all([st.secrets.strava.client_id,st.secrets.strava.client_secret]):
+    raise ValueError("Missing Strava API credentials.")
 
-if not all([CLIENT_ID]):
-    raise ValueError("Missing Strava API credentials (CLIENT_ID).")
-if not all([CLIENT_SECRET]):
-    raise ValueError("Missing Strava API credentials (CLIENT_SECRET).")
-if not all([REFRESH_TOKEN]):
-    raise ValueError("Missing Strava API credentials (REFRESH_TOKEN).")
+CLIENT_ID = st.secrets.strava.client_id 
+CLIENT_SECRET = st.secrets.strava.client_secret
 
 # --- Functions ---
 
@@ -27,7 +19,7 @@ def refresh_access_token():
     payload = {
         'client_id': CLIENT_ID,
         'client_secret': CLIENT_SECRET,
-        'refresh_token': REFRESH_TOKEN,
+        # 'refresh_token': REFRESH_TOKEN,
         'grant_type': 'refresh_token'
     }
     try:
