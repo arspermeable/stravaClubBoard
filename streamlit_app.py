@@ -73,7 +73,7 @@ def get_activities(access_token, after=None, before=None):  # Add after/before i
 
 st.title("🎈 My new Strava app")
 
-access_token = refresh_access_token() # Get initial token
+'''access_token = refresh_access_token() # Get initial token
 st.write(access_token)
 
 if access_token:
@@ -93,8 +93,8 @@ else:
 
 # ... process activities_last_week (default)
 activities_last_week = get_activities(access_token)
-
+'''
 
 st.write(
-    "Hemos llegado al final! Access token: ",access_token
+    "Hemos llegado al final! client_id: ",CLIENT_ID
 )
