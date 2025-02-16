@@ -77,11 +77,34 @@ st.markdown(
     """
     # :circus_tent: Streamlit Activity Viewer for Strava
     This is a proof of concept of a [Streamlit](https://streamlit.io/) application that implements the [Strava API](https://developers.strava.com/) OAuth2 authentication flow.
-    Based on the ideas found at [Aart Goossens Github](https://github.com/AartGoossens/streamlit-activity-viewer) and is licensed under an [MIT license](https://github.com/AartGoossens/streamlit-activity-viewer/blob/main/LICENSE).
+    The source code can be found at [my GitHub](https://github.com/AartGoossens/streamlit-activity-viewer) and is licensed under an [MIT license](https://github.com/AartGoossens/streamlit-activity-viewer/blob/main/LICENSE).
 
-        """
+    [Get in touch me with me](https://gssns.io/services/) if you want me to build you an application on top of this one, or a similar application.
+    """
 )
 
+'''access_token = refresh_access_token() # Get initial token
+st.write(access_token)
+
+if access_token:
+    athlete_profile = get_athlete_profile(access_token)
+    if athlete_profile:
+        print("Athlete Profile:")
+        print(json.dumps(athlete_profile, indent=4)) # Pretty print the JSON
+
+    activities = get_activities(access_token)
+    if activities:
+        print("\nActivities:")
+        for activity in activities:
+            print(f"- {activity.get('name', 'No Name')} ({activity.get('type')})") # Safer access to name/type
+else:
+    print("Failed to get access token. Exiting.")
+
+
+# ... process activities_last_week (default)
+activities_last_week = get_activities(access_token)
+'''
+
 st.write(
-    "Hemos llegado al final! strava client_id: ",CLIENT_ID
+    "Hemos llegado al final! client_id: ",CLIENT_ID
 )
