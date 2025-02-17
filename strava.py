@@ -121,7 +121,7 @@ def exchange_authorization_code(authorization_code):
         response.raise_for_status()
     except httpx.HTTPStatusError:
         st.error("Something went wrong while authenticating with Strava. Please reload and try again")
-        # st.experimental_set_query_params()
+        st.query_params.clear()        # st.experimental_set_query_params()
         st.stop()
         return
 
@@ -131,24 +131,24 @@ def exchange_authorization_code(authorization_code):
 
 
 def authenticate(header=None, stop_if_unauthenticated=True):
-    query_params = st.query_params                # query_params = st.experimental_get_query_params()
-    authorization_code = query_params.get("code", [None])[0]
 
-    if authorization_code is None:
-        authorization_code = query_params.session # get("session", [None])[0]
-
-    if authorization_code is None:
-        login_header(header=header)
-        if stop_if_unauthenticated:
-            st.stop()
-        return
+    if "code" not in st.query_params:
+        if "session" not in st.query_params:
+            login_header(header=header)
+            if stop_if_unauthenticated:
+                st.stop()
+            return
+        else:
+            authorization_code = st.query_params.session
     else:
-        logout_header(header=header)
-        strava_auth = exchange_authorization_code(authorization_code)
-        logged_in_title(strava_auth, header)
-        st.query_params.session=authorization_code     # st.experimental_set_query_params(session=authorization_code) 
+        authorization_code = st.query_params.code
 
-        return strava_auth
+    logout_header(header=header)
+    strava_auth = exchange_authorization_code(authorization_code)
+    logged_in_title(strava_auth, header)
+    st.query_params.session=authorization_code
+
+    return strava_auth
 
 
 def header():
