@@ -5,12 +5,12 @@ STRAVA_CLIENT_ID = st.secrets.strava.client_id
 STRAVA_CLIENT_SECRET = st.secrets.strava.client_secret
 STRAVA_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token"
 
-def refresh_access_token(code):
+def refresh_access_token(auth_code):
     token_url = "https://oauth.strava.com/api/v3/oauth/token"
     payload = {
         'client_id':STRAVA_CLIENT_ID,
         'client_secret': STRAVA_CLIENT_SECRET,
-        'code': code,
+        'code': auth_code,
         'grant_type': 'authorization_code'
     }
     try:
@@ -43,6 +43,6 @@ if authorization_code is None:
     st.stop()
 else:
     st.write("Code:" + authorization_code)
-    st.write("Scope authorized" + st.query_params["scope"])
+    st.write("Scope authorized:" + st.query_params["scope"])
 
     access_token, refress_token = refresh_access_token(authorization_code)
