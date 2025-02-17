@@ -97,7 +97,8 @@ else:
     st.markdown("This is correctly connected with Strava.")
 
 
-st.write("Auth:" + strava_auth)
+st.write("Auth:")
+st.write(strava_auth)
 
 '''
 activity = strava.select_strava_activity(strava_auth)
