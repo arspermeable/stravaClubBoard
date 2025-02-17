@@ -101,10 +101,9 @@ st.write("Auth:")
 st.write(strava_auth)
 
 activity = strava.select_strava_activity(strava_auth)
-
-'''
 data = strava.download_activity(activity, strava_auth)
 
+'''
 csv = data.to_csv()
 csv_as_base64 = base64.b64encode(csv.encode()).decode()
 st.markdown(

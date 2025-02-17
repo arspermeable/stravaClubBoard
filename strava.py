@@ -226,6 +226,15 @@ def select_strava_activity(auth):
 
 
 #@st.cache(show_spinner=False, max_entries=30, allow_output_mutation=True)
-#def download_activity(activity, strava_auth):
-#    with st.spinner(f"Downloading activity \"{activity['name']}\"..."):
-#        return sweat.read_strava(activity["id"], strava_auth["access_token"])
+def download_activity(activity, strava_auth):
+    access_token = auth["access_token"]
+    response = httpx.get(
+        url=f"{STRAVA_API_BASE_URL}/activity/{activity}",
+        params={
+        },
+        headers={
+            "Authorization": f"Bearer {access_token}",
+        },
+    )
+
+    return response.json()
