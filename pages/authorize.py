@@ -28,5 +28,5 @@ st.write(
 
 authorization_url = authorization()
 authorization_link = "<a href='" + authorization_url + "' target='_self'>Authorize Strava access</a>"
-st.link_button("Authorize Strava access",authorization_link)
+st.link_button("Authorize Strava access",authorization_url)
 
