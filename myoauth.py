@@ -87,7 +87,7 @@ class OAuth2Component:
       extras_params=extras_params
     ))
 
-    print(f'generated authorize request: {authorize_request}')
+    st.write(f'generated authorize request: {authorize_request}')
 
     result = _authorize_button(
       authorization_url=authorize_request,
@@ -99,7 +99,7 @@ class OAuth2Component:
       use_container_width=use_container_width,
       auto_click=auto_click,
     )
-    print(f'result: {result}')
+    st.write(f'result: {result}')
 
     if result:
       try:
