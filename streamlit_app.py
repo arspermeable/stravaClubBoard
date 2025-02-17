@@ -50,8 +50,9 @@ result = stravaOauth2Session.authorize_button(name="Authorize",
                                                 scope=STRAVA_SCOPE,
                                                 extras_params={"approval_prompt":"force"})
 
-if result and 'token' in result:
-    st.write(result.get('token'))
+#if result and 'token' in result:
+#    st.write(result.get('token'))
+#
 
 blocked_code = '''
 # Check if token exists in session state
