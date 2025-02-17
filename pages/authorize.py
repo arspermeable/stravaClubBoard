@@ -35,7 +35,7 @@ if 'token' not in st.session_state:
     if result and 'token' in result:
         st.write("fila 2")
         # If authorization successful, save token in session state
-        st.session_state.token = result.get('token')
+        # st.session_state.token = result.get('token')
         st.rerun()
 else:
     # If token exists in session state, show the token
