@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_oauth import OAuth2Component
 from httpx_oauth.oauth2 import OAuth2
+import asyncio
 
 #STRAVA_CLIENT_ID = st.secrets.strava.client_id
 #STRAVA_CLIENT_SECRET = st.secrets.strava.client_secret
@@ -44,7 +45,7 @@ stravaOauth2 = OAuth2(STRAVA_CLIENT_ID,
                       token_endpoint_auth_method="client_secret_basic",
                       revocation_endpoint_auth_method="client_secret_basic" )
 
-auth_url = stravaOauth2.get_authorization_url(redirect_uri=STRAVA_REDIRECT_URL, scope=STRAVA_SCOPE.split(" "), state=None, extras_params={"approval_prompt":"force"})
+auth_url = asyncio.run(stravaOauth2.get_authorization_url(redirect_uri=STRAVA_REDIRECT_URL, scope=STRAVA_SCOPE.split(" "), state=None, extras_params={"approval_prompt":"force"}))
 st.write(auth_url)
 
 result = stravaOauth2Session.authorize_button(name="Authorize", 
