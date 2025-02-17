@@ -1,3 +1,5 @@
+blocked_code = '''
+
 import base64
 import os
 import streamlit as st
@@ -5,7 +7,7 @@ import streamlit as st
 import httpx
 import arrow
 import sweat
-# from bokeh.models.widgets import Div
+from bokeh.models.widgets import Div
 
 
 APP_URL = os.environ["APP_URL"]
@@ -148,3 +150,4 @@ def select_strava_activity(auth):
 def download_activity(activity, strava_auth):
     with st.spinner(f"Downloading activity \"{activity['name']}\"..."):
         return sweat.read_strava(activity["id"], strava_auth["access_token"])
+'''
