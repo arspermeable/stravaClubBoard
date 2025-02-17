@@ -13,7 +13,7 @@ def authorization():
     scope = ['read','activity:read','activity:read_all']
     stravaSession = OAuth2Session(client_id = STRAVA_CLIENT_ID, redirect_uri=STRAVA_REDIRECT_URL)
     stravaSession.scope = ["read,activity:read,activity:read_all"]
-    authorization_url, state = stravaSession.authorization_url(STRAVA_AUTHORIZATION_URL)
+    authorization_url, state = stravaSession.authorization_url(STRAVA_AUTHORIZATION_URL, approval_prompt="force")
 
     return authorization_url
 
