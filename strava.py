@@ -132,7 +132,7 @@ def exchange_authorization_code(authorization_code):
 
 def authenticate(header=None, stop_if_unauthenticated=True):
     query_params = st.query_params                # query_params = st.experimental_get_query_params()
-    authorization_code = query_params.code        # get("code", [None])[0]
+    authorization_code = query_params.get("code", [None])[0]
 
     if authorization_code is None:
         authorization_code = query_params.session # get("session", [None])[0]
