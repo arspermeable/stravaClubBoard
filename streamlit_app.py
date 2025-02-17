@@ -81,7 +81,7 @@ st.markdown(
     """
 )
 
-strava_auth = strava.authenticate(header=Nune, stop_if_unauthenticated=False)
+strava_auth = strava.authenticate(header=None, stop_if_unauthenticated=False)
 # header=strava_header
 
 if strava_auth is None:
