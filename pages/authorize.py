@@ -4,7 +4,7 @@ from streamlit_oauth import OAuth2Component
 STRAVA_CLIENT_ID = st.secrets.strava.client_id
 STRAVA_CLIENT_SECRET = st.secrets.strava.client_secret
 
-STRAVA_SCOPE = ["activity:read_all"]
+STRAVA_SCOPE = ["read"]
 
 STRAVA_REDIRECT_URL = st.secrets.app.url + "/return"
 STRAVA_AUTHORIZATION_URL = "https://www.strava.com/oauth/authorize"
