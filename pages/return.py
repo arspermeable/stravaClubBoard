@@ -34,11 +34,10 @@ st.write(
     """This is a fake page to simulate the return after authorization."""
 )
 
-query_params = st.experimental_get_query_params()
-authorization_code = query_params.get("code", [None])[0]
+authorization_code = st.query_params.code
 
 if authorization_code is None:
-    authorization_code = query_params.get("session", [None])[0]
+    authorization_code = st.query_params.session
 
 if authorization_code is None:
     st.stop()
