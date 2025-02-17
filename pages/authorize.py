@@ -12,7 +12,12 @@ STRAVA_TOKEN_URL = STRAVA_REFRESH_TOKEN_URL = STRAVA_REVOKE_TOKEN_URL = "https:/
 
 st.set_page_config(page_title="Authorization fake")
 
-stravaOauth2Session = OAuth2Component(STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_AUTHORIZATION_URL, STRAVA_TOKEN_URL, STRAVA_REFRESH_TOKEN_URL, STRAVA_REVOKE_TOKEN_URL)
+stravaOauth2Session = OAuth2Component(STRAVA_CLIENT_ID, 
+                                      STRAVA_CLIENT_SECRET, 
+                                      STRAVA_AUTHORIZATION_URL, 
+                                      STRAVA_TOKEN_URL, 
+                                      STRAVA_REFRESH_TOKEN_URL, 
+                                      STRAVA_REVOKE_TOKEN_URL)
 st.markdown("# Authorization Fake")
 
 st.write(
@@ -22,7 +27,10 @@ st.write(
 # Check if token exists in session state
 if 'token' not in st.session_state:
     # If not, show authorize button
-    result = stravaOauth2Session.authorize_button("Authorize", STRAVA_REDIRECT_URL, STRAVA_SCOPE)
+    result = stravaOauth2Session.authorize_button(name="Authorize", 
+                                                  redirect_uri=STRAVA_REDIRECT_URL, 
+                                                  scope=STRAVA_SCOPE,
+                                                  extras_params={"approval_prompt":"force"})
     if result and 'token' in result:
         # If authorization successful, save token in session state
         st.session_state.token = result.get('token')
