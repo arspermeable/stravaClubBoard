@@ -1,28 +1,41 @@
-blocked_code = '''
-
 import base64
 import os
-import streamlit as st
 
-import httpx
 import arrow
-import sweat
+import httpx
+import streamlit as st
+#import sweat
 from bokeh.models.widgets import Div
 
 
-APP_URL = os.environ["APP_URL"]
-STRAVA_CLIENT_ID = os.environ["STRAVA_CLIENT_ID"]
-STRAVA_CLIENT_SECRET = os.environ["STRAVA_CLIENT_SECRET"]
+#APP_URL = os.environ["APP_URL"]
+#STRAVA_CLIENT_ID = os.environ["STRAVA_CLIENT_ID"]
+#STRAVA_CLIENT_SECRET = os.environ["STRAVA_CLIENT_SECRET"]
+APP_URL = "https://stravaclubboard.streamlit.app/"
+STRAVA_CLIENT_ID = "148919"
+STRAVA_CLIENT_SECRET = "905902bb785f877dd9e8932d19228378d6c74bc0"
+
 STRAVA_AUTHORIZATION_URL = "https://www.strava.com/oauth/authorize"
 STRAVA_API_BASE_URL = "https://www.strava.com/api/v3"
 DEFAULT_ACTIVITY_LABEL = "NO_ACTIVITY_SELECTED"
 STRAVA_ORANGE = "#fc4c02"
 
-@st.cache(show_spinner=False)
+
+
+#@st.cache(show_spinner=False)
 def load_image_as_base64(image_path):
     with open(image_path, "rb") as f:
         contents = f.read()
     return base64.b64encode(contents).decode("utf-8")
+
+
+def powered_by_strava_logo():
+    base64_image = load_image_as_base64("./static/api_logo_pwrdBy_strava_horiz_light.png")
+    st.markdown(
+        f'<img src="data:image/png;base64,{base64_image}" width="100%" alt="powered by strava">',
+        unsafe_allow_html=True,
+    )
+
 
 def authorization_url():
     request = httpx.Request(
@@ -39,7 +52,61 @@ def authorization_url():
 
     return request.url
 
-@st.cache(show_spinner=False, suppress_st_warning=True)
+
+def login_header(header=None):
+    strava_authorization_url = authorization_url()
+
+    if header is None:
+        base = st
+    else:
+        col1, _, _, button = header
+        base = button
+
+    with col1:
+        powered_by_strava_logo()
+
+    base64_image = load_image_as_base64("./static/btn_strava_connectwith_orange@2x.png")
+    base.markdown(
+        (
+            f"<a href=\"{strava_authorization_url}\">"
+            f"  <img alt=\"strava login\" src=\"data:image/png;base64,{base64_image}\" width=\"100%\">"
+            f"</a>"
+        ),
+        unsafe_allow_html=True,
+    )
+
+
+def logout_header(header=None):
+    if header is None:
+        base = st
+    else:
+        _, col2, _, button = header
+        base = button
+
+
+    #with col2:
+    #    powered_by_strava_logo()
+
+    if base.button("Log out"):
+        js = f"window.location.href = '{APP_URL}'"
+        html = f"<img src onerror=\"{js}\">"
+        div = Div(text=html)
+        st.bokeh_chart(div)
+
+
+def logged_in_title(strava_auth, header=None):
+    if header is None:
+        base = st
+    else:
+        col, _, _, _ = header
+        base = col
+
+    first_name = strava_auth["athlete"]["firstname"]
+    last_name = strava_auth["athlete"]["lastname"]
+    col.markdown(f"*Welcome, {first_name} {last_name}!*")
+
+
+#@st.cache(show_spinner=False, suppress_st_warning=True)
 def exchange_authorization_code(authorization_code):
     response = httpx.post(
         url="https://www.strava.com/oauth/token",
@@ -71,17 +138,29 @@ def authenticate(header=None, stop_if_unauthenticated=True):
         authorization_code = query_params.get("session", [None])[0]
 
     if authorization_code is None:
+        login_header(header=header)
         if stop_if_unauthenticated:
             st.stop()
         return
     else:
+        logout_header(header=header)
         strava_auth = exchange_authorization_code(authorization_code)
+        logged_in_title(strava_auth, header)
         st.experimental_set_query_params(session=authorization_code)
 
         return strava_auth
 
 
-@st.cache(show_spinner=False)
+def header():
+    col1, col2, col3 = st.columns(3) # beta_columns(3)
+
+    with col3:
+        strava_button = st.empty()
+
+    return col1, col2, col3, strava_button
+
+
+#@st.cache(show_spinner=False)
 def get_activities(auth, page=1):
     access_token = auth["access_token"]
     response = httpx.get(
@@ -146,8 +225,7 @@ def select_strava_activity(auth):
     return activity
 
 
-@st.cache(show_spinner=False, max_entries=30, allow_output_mutation=True)
-def download_activity(activity, strava_auth):
-    with st.spinner(f"Downloading activity \"{activity['name']}\"..."):
-        return sweat.read_strava(activity["id"], strava_auth["access_token"])
-'''
+#@st.cache(show_spinner=False, max_entries=30, allow_output_mutation=True)
+#def download_activity(activity, strava_auth):
+#    with st.spinner(f"Downloading activity \"{activity['name']}\"..."):
+#        return sweat.read_strava(activity["id"], strava_auth["access_token"])
