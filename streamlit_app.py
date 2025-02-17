@@ -50,7 +50,7 @@ result = stravaOauth2Session.authorize_button(name="Authorize",
                                                 scope=STRAVA_SCOPE,
                                                 extras_params={"approval_prompt":"force"})
 
-if 'token' in result:
+if result and 'token' in result:
     st.write(result.get('token'))
 
 blocked_code = '''
