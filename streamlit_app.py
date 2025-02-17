@@ -97,18 +97,17 @@ strava_auth = strava.authenticate(header=strava_header, stop_if_unauthenticated=
 
 if strava_auth is None:
     st.markdown("Click the \"Connect with Strava\" button at the top to login with your Strava account and get started.")
-
-blocked_code = '''
-    st.image(
-        "https://files.gssns.io/public/streamlit-activity-viewer-demo.gif",
-        caption="Streamlit Activity Viewer demo",
-        use_column_width="always",
-    )
+    #st.image(
+    #    "https://files.gssns.io/public/streamlit-activity-viewer-demo.gif",
+    #    caption="Streamlit Activity Viewer demo",
+    #    use_column_width="always",
+    #)
     st.stop()
 
 activity = strava.select_strava_activity(strava_auth)
 data = strava.download_activity(activity, strava_auth)
 
+blocked_code = '''
 
 csv = data.to_csv()
 csv_as_base64 = base64.b64encode(csv.encode()).decode()
