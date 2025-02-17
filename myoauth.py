@@ -22,7 +22,7 @@ if not _RELEASE:
   )
 else:
   parent_dir = os.path.dirname(os.path.abspath(__file__))
-  build_dir = os.path.join(parent_dir, "frontend/dist")
+  build_dir = os.path.join(parent_dir, "front")
   _authorize_button = components.declare_component("authorize_button", path=build_dir)
 
 
