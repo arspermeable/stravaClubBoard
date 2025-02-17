@@ -1,5 +1,6 @@
 streamlit
 streamlit-oauth
 httpx
+arrow
 requests_oauthlib
 strava
