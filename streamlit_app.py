@@ -91,12 +91,7 @@ st.markdown(
 strava_auth = strava.authenticate(header=strava_header, stop_if_unauthenticated=False)
 
 if strava_auth is None:
-    st.markdown("Click the \"Connect with Strava\" button at the top to login with your Strava account and get started.")
-    #st.image(
-    #    "https://files.gssns.io/public/streamlit-activity-viewer-demo.gif",
-    #    caption="Streamlit Activity Viewer demo",
-    #    use_column_width="always",
-    #)
+    st.markdown("NOT LOGGED IN.")
     st.stop()
 else:
     st.markdown("This is correctly connected with Strava.")
