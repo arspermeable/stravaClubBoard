@@ -31,6 +31,7 @@ if 'token' not in st.session_state:
                                                   redirect_uri=STRAVA_REDIRECT_URL, 
                                                   scope=STRAVA_SCOPE,
                                                   extras_params={"approval_prompt":"force"})
+    st.write("fila 1")
     if result and 'token' in result:
         # If authorization successful, save token in session state
         st.session_state.token = result.get('token')
