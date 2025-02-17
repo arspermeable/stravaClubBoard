@@ -1,3 +1,4 @@
 streamlit
 httpx
 httpx_oauth
+streamlit-oauth
