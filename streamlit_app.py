@@ -97,6 +97,9 @@ else:
     st.markdown("This is correctly connected with Strava.")
 
 
+st.write("Auth:" + strava_auth)
+
+'''
 activity = strava.select_strava_activity(strava_auth)
 data = strava.download_activity(activity, strava_auth)
 
@@ -135,3 +138,4 @@ if selected_columns:
         st.altair_chart(altair_chart, use_container_width=True)
 else:
     st.write("No column(s) selected")
+'''
