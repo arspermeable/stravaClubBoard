@@ -6,7 +6,8 @@ STRAVA_CLIENT_SECRET = st.secrets.strava.client_secret
 
 STRAVA_SCOPE = "read,activity:read,activity:read_all"
 
-STRAVA_REDIRECT_URL = st.secrets.app.url + "/return"
+#STRAVA_REDIRECT_URL = st.secrets.app.url + "/return"
+STRAVA_REDIRECT_URL = "https://stravaclubboard.streamlit.app/component/streamlit_oauth.authorize_button"
 STRAVA_AUTHORIZATION_URL = "https://www.strava.com/oauth/authorize"
 STRAVA_TOKEN_URL = STRAVA_REFRESH_TOKEN_URL = STRAVA_REVOKE_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token"
 
