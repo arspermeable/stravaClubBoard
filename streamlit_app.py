@@ -1,4 +1,3 @@
-blocked_code = '''
 import streamlit as st
 from streamlit_oauth import OAuth2Component
 
@@ -63,7 +62,9 @@ else:
         st.rerun()
 
 st.write("fila 5")
-'''
+
+
+blocked_code = '''
 
 import base64
 
@@ -103,40 +104,4 @@ st.write(strava_auth)
 activity = strava.select_strava_activity(strava_auth)
 data = strava.download_activity(activity, strava_auth)
 
-'''
-csv = data.to_csv()
-csv_as_base64 = base64.b64encode(csv.encode()).decode()
-st.markdown(
-    (
-        f"<a "
-        f"href=\"data:application/octet-stream;base64,{csv_as_base64}\" "
-        f"download=\"{activity['id']}.csv\" "
-        f"style=\"color:{strava.STRAVA_ORANGE};\""
-        f">Download activity as csv file</a>"
-    ),
-    unsafe_allow_html=True
-)
-
-
-columns = []
-for column in data.columns:
-    if is_numeric_dtype(data[column]):
-        columns.append(column)
-
-selected_columns = st.multiselect(
-    label="Select columns to plot",
-    options=columns
-)
-
-data["index"] = data.index
-
-if selected_columns:
-    for column in selected_columns:
-        altair_chart = alt.Chart(data).mark_line(color=strava.STRAVA_ORANGE).encode(
-            x="index:T",
-            y=f"{column}:Q",
-        )
-        st.altair_chart(altair_chart, use_container_width=True)
-else:
-    st.write("No column(s) selected")
 '''
