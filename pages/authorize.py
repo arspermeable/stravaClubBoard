@@ -27,6 +27,6 @@ st.write(
 )
 
 authorization_url = authorization()
-st.markdown("<a href='" + authorization_url + "' target='_self'>Authorize Strava access</a>", unsafe_allow_html=True)
+st.html("<a href='" + authorization_url + "' target='_self'>Authorize Strava access</a>", unsafe_allow_html=True)
 
 
