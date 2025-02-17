@@ -1,5 +1,6 @@
 import streamlit as st
-from streamlit_oauth import OAuth2Component
+#from streamlit_oauth import OAuth2Component
+from myoauth import OAuth2Component
 from httpx_oauth.oauth2 import OAuth2
 import asyncio
 
