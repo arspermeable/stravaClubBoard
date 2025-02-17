@@ -103,6 +103,9 @@ if strava_auth is None:
     #    use_column_width="always",
     #)
     st.stop()
+else:
+    st.markdown("This is correctly connected with Strava.")
+
 
 activity = strava.select_strava_activity(strava_auth)
 data = strava.download_activity(activity, strava_auth)
