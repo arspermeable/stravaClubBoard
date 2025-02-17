@@ -8,14 +8,16 @@ STRAVA_SCOPE = "read,activity:read,activity:read_all"
 
 #STRAVA_REDIRECT_URL = st.secrets.app.url + "/return"
 STRAVA_REDIRECT_URL = "https://stravaclubboard.streamlit.app/component/streamlit_oauth.authorize_button"
-STRAVA_AUTHORIZATION_URL = "https://www.strava.com/oauth/authorize"
-STRAVA_TOKEN_URL = STRAVA_REFRESH_TOKEN_URL = STRAVA_REVOKE_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token"
+STRAVA_AUTHORIZE_URL = "https://www.strava.com/oauth/authorize"
+STRAVA_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token"
+STRAVA_REFRESH_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token"
+STRAVA_REVOKE_TOKEN_URL = "https://www.strava.com/api/v3/oauth/deauthorize"
 
 st.set_page_config(page_title="Authorization fake")
 
 stravaOauth2Session = OAuth2Component(STRAVA_CLIENT_ID, 
                                       STRAVA_CLIENT_SECRET, 
-                                      STRAVA_AUTHORIZATION_URL, 
+                                      STRAVA_AUTHORIZE_URL, 
                                       STRAVA_TOKEN_URL, 
                                       STRAVA_REFRESH_TOKEN_URL, 
                                       STRAVA_REVOKE_TOKEN_URL)
@@ -29,9 +31,10 @@ st.write(
 if 'token' not in st.session_state:
     # If not, show authorize button
     result = stravaOauth2Session.authorize_button(name="Authorize", 
-                                                  redirect_uri=STRAVA_REDIRECT_URL, 
-                                                  scope=STRAVA_SCOPE,
-                                                  extras_params={"approval_prompt":"force"})
+                                                  redirect_uri=STRAVA_REDIRECT_URL)
+                                                  #, 
+                                                  #scope=STRAVA_SCOPE,
+                                                  #extras_params={"approval_prompt":"force"})
     st.write("fila 1")
     if result and 'token' in result:
         st.write("fila 2")
@@ -40,6 +43,7 @@ if 'token' not in st.session_state:
         st.rerun()
 else:
     # If token exists in session state, show the token
+    st.write("fila 3")
     token = st.session_state['token']
     st.json(token)
     if st.button("Refresh Token"):
@@ -47,3 +51,5 @@ else:
         token = stravaOauth2Session.refresh_token(token)
         st.session_state.token = token
         st.rerun()
+
+st.write("fila 4")
