@@ -79,17 +79,12 @@ st.set_page_config(
     page_icon=":circus_tent:",
 )
 
-st.image("https://analytics.gssns.io/pixel.png")
-
 strava_header = strava.header()
 
 st.markdown(
     """
-    # :circus_tent: Streamlit Activity Viewer for Strava
-    This is a proof of concept of a [Streamlit](https://streamlit.io/) application that implements the [Strava API](https://developers.strava.com/) OAuth2 authentication flow.
-    The source code can be found at [my GitHub](https://github.com/AartGoossens/streamlit-activity-viewer) and is licensed under an [MIT license](https://github.com/AartGoossens/streamlit-activity-viewer/blob/main/LICENSE).
-
-    [Get in touch me with me](https://gssns.io/services/) if you want me to build you an application on top of this one, or a similar application.
+    # Streamlit oAuth2 for Strava
+    I've learned this from [GitHub](https://github.com/AartGoossens/streamlit-activity-viewer) licensed under [MIT license](https://github.com/AartGoossens/streamlit-activity-viewer/blob/main/LICENSE).
     """
 )
 

@@ -131,7 +131,8 @@ def exchange_authorization_code(authorization_code):
 
 
 def authenticate(header=None, stop_if_unauthenticated=True):
-    query_params = st.experimental_get_query_params()
+    #query_params = st.experimental_get_query_params()
+    query_params = st.query_params
     authorization_code = query_params.get("code", [None])[0]
 
     if authorization_code is None:
@@ -152,7 +153,7 @@ def authenticate(header=None, stop_if_unauthenticated=True):
 
 
 def header():
-    col1, col2, col3 = st.columns(3) # beta_columns(3)
+    col1, col2, col3 = st.columns(3)
 
     with col3:
         strava_button = st.empty()
