@@ -26,7 +26,7 @@ st.write(
     """This is a fake page to simulate the authorization request to Strava."""
 )
 
-authorization_link = "<a href='" + authorization() + "' target='_self'>Authorize Strava access</a>"
-st.html(authorization_link)
-
+authorization_url = authorization()
+authorization_link = "<a href='" + authorization_url + "' target='_self'>Authorize Strava access</a>"
+st.link_button("Authorize Strava access",authorization_link)
 
