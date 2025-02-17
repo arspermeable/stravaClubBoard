@@ -1,8 +1,2 @@
 streamlit
-streamlit-oauth
 httpx
-arrow
-bokeh
-requests_oauthlib
-myoauth
-strava
