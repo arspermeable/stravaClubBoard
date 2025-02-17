@@ -12,9 +12,9 @@ def authorization():
     from requests_oauthlib import OAuth2Session
 
     scope = ['read','activity:read','activity:read_all']
-    oauth = OAuth2Session(STRAVA_CLIENT_ID,
-                          STRAVA_CLIENT_SECRET,
+    oauth = OAuth2Session(client_id = STRAVA_CLIENT_ID,
                           redirect_uri=STRAVA_REDIRECT_URL,
+                          client_secret = STRAVA_CLIENT_SECRET,
                           scope=scope )
     authorization_url, state = oauth.authorization_url(STRAVA_AUTHORIZATION_URL)
 
