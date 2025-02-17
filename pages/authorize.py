@@ -31,10 +31,9 @@ st.write(
 if 'token' not in st.session_state:
     # If not, show authorize button
     result = stravaOauth2Session.authorize_button(name="Authorize", 
-                                                  redirect_uri=STRAVA_REDIRECT_URL)
-                                                  #, 
-                                                  #scope=STRAVA_SCOPE,
-                                                  #extras_params={"approval_prompt":"force"})
+                                                  redirect_uri=STRAVA_REDIRECT_URL, 
+                                                  scope="")
+                                                  #,extras_params={"approval_prompt":"force"})
     st.write("fila 1")
     if result and 'token' in result:
         st.write("fila 2")
