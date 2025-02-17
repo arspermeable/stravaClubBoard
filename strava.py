@@ -188,7 +188,7 @@ def activity_label(activity):
 
 
 def select_strava_activity(auth):
-    col1, col2 = st.beta_columns([1, 3])
+    col1, col2 = st.columns([1, 3])
     with col1:
         page = st.number_input(
             label="Activities page",
