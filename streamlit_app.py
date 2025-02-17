@@ -35,7 +35,7 @@ stravaOauth2Session = OAuth2Component(STRAVA_CLIENT_ID,
                                       STRAVA_REFRESH_TOKEN_URL, 
                                       STRAVA_REVOKE_TOKEN_URL)
 
-'''
+blocked_code = '''
 stravaOauth2 = OAuth2(STRAVA_CLIENT_ID,
                       STRAVA_CLIENT_SECRET,
                       STRAVA_AUTHORIZE_URL,
@@ -49,7 +49,7 @@ result = stravaOauth2Session.authorize_button(name="Authorize",
                                                 redirect_uri=STRAVA_REDIRECT_URL, 
                                                 scope=STRAVA_SCOPE,
                                                 extras_params={"approval_prompt":"force"})
-'''
+blocked_code = '''
 # Check if token exists in session state
 if 'token' not in st.session_state:
     # If not, show authorize button
