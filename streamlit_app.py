@@ -90,8 +90,8 @@ else:
     # save the token to cloud storage
  #   conn = st.connection('gcs', type=FilesConnection)
  #   df = conn.write  ("efr-assets/runners/runner.json", input_format="csv", ttl=600)
-    st.write(json.dump(st.session_state['token']))
-    
+    st.write(json.dumps(st.session_state['token']))
+
     # Now, we can get the data. For instance, let's get the activities of the athlete
     activities = get_activities(st.session_state['token'])
     st.write(activities)
