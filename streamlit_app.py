@@ -65,5 +65,5 @@ else:
     if st.button("Revoke Token"):
         # If revoke token button is clicked, refresh the token
         stravaOauth2Session.revoke_token(token)
-        st.session_state.token = None
+        del st.session_state['token']
         st.rerun()
