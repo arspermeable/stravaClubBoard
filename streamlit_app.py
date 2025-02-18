@@ -1,5 +1,4 @@
 import streamlit as st
-from st_files_connection import FilesConnection
 from streamlit_oauth import OAuth2Component
 import httpx
 
