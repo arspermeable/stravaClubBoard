@@ -52,56 +52,13 @@ if 'token' not in st.session_state:
         st.rerun()
 else:
     # If token exists in session state, show the token
-    st.write("fila 3")
     token = st.session_state['token']
-    st.json(token)
+    #st.json(token)
+    st.write("You are authorized until " + token.expires_at)
+    st.write(token.athlete.firstname + " " + token.athlete.lastname)
     if st.button("Refresh Token"):
         st.write("fila 4")
         # If refresh token button is clicked, refresh the token
         token = stravaOauth2Session.refresh_token(token)
         st.session_state.token = token
         st.rerun()
-
-st.write("fila 5")
-
-blocked_code = '''
-
-import base64
-
-import altair as alt
-import streamlit as st
-
-import strava
-#from pandas.api.types import is_numeric_dtype
-
-
-st.set_page_config(
-    page_title="Streamlit Activity Viewer for Strava",
-    page_icon=":circus_tent:",
-)
-
-strava_header = strava.header()
-
-st.markdown(
-    """
-    # Streamlit oAuth2 for Strava
-    I've learned this from [GitHub](https://github.com/AartGoossens/streamlit-activity-viewer) licensed under [MIT license](https://github.com/AartGoossens/streamlit-activity-viewer/blob/main/LICENSE).
-    """
-)
-
-strava_auth = strava.authenticate(header=strava_header, stop_if_unauthenticated=False)
-
-if strava_auth is None:
-    st.markdown("NOT LOGGED IN.")
-    st.stop()
-else:
-    st.markdown("This is correctly connected with Strava.")
-
-
-st.write("Auth:")
-st.write(strava_auth)
-
-activity = strava.select_strava_activity(strava_auth)
-data = strava.download_activity(activity, strava_auth)
-
-'''
