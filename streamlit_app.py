@@ -46,7 +46,7 @@ if 'token' not in st.session_state:
                                                   extras_params={"approval_prompt":"force"})
     st.write("fila 1")
     if result and 'token' in result:
-        st.write("fila 2")
+        st.write(result)
         # If authorization successful, save token in session state
         st.session_state.token = result.get('token')
         st.rerun()
