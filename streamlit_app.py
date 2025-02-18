@@ -1,8 +1,6 @@
 import streamlit as st
-#from streamlit_oauth import OAuth2Component
-from myoauth import OAuth2Component
-from httpx_oauth.oauth2 import OAuth2
-import asyncio
+from streamlit_oauth import OAuth2Component
+#from myoauth import OAuth2Component
 
 #STRAVA_CLIENT_ID = st.secrets.strava.client_id
 #STRAVA_CLIENT_SECRET = st.secrets.strava.client_secret
@@ -39,24 +37,6 @@ stravaOauth2Session = OAuth2Component(STRAVA_CLIENT_ID,
                                       token_endpoint_auth_method = "client_secret_post",
                                       revocation_endpoint_auth_method = "client_secret_post")
 
-stravaOauth2 = OAuth2(STRAVA_CLIENT_ID,
-                      STRAVA_CLIENT_SECRET,
-                      STRAVA_AUTHORIZE_URL,
-                      STRAVA_TOKEN_URL,
-                      refresh_token_endpoint=STRAVA_REFRESH_TOKEN_URL,
-                      revoke_token_endpoint=STRAVA_REVOKE_TOKEN_URL,
-                      token_endpoint_auth_method="client_secret_basic",
-                      revocation_endpoint_auth_method="client_secret_basic" )
-
-auth_url = asyncio.run(stravaOauth2.get_authorization_url(redirect_uri=STRAVA_REDIRECT_URL, scope=STRAVA_SCOPE.split(" "), state=None, extras_params={"approval_prompt":"force"}))
-st.write(auth_url)
-
-result = stravaOauth2Session.authorize_button(name="Authorize", 
-                        redirect_uri=STRAVA_REDIRECT_URL, 
-                        scope=STRAVA_SCOPE,
-                        extras_params={"approval_prompt":"force"})
-
-blocked_code = '''
 # Check if token exists in session state
 if 'token' not in st.session_state:
     # If not, show authorize button
@@ -83,7 +63,6 @@ else:
         st.rerun()
 
 st.write("fila 5")
-'''
 
 blocked_code = '''
 
