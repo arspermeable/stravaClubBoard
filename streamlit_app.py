@@ -11,9 +11,27 @@ STRAVA_SCOPE = "read,activity:read,activity:read_all"
 
 STRAVA_REDIRECT_URL = "https://stravaclubboard.streamlit.app/component/streamlit_oauth.authorize_button"
 STRAVA_AUTHORIZE_URL = "https://www.strava.com/oauth/authorize"
-STRAVA_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token"
-STRAVA_REFRESH_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token"
-STRAVA_REVOKE_TOKEN_URL = "https://www.strava.com/api/v3/oauth/deauthorize"
+STRAVA_BASE_URL = "https://www.strava.com/api/v3/"
+STRAVA_TOKEN_URL = STRAVA_BASE_URL + "oauth/token"
+STRAVA_REFRESH_TOKEN_URL = STRAVA_BASE_URL + "oauth/token"
+STRAVA_REVOKE_TOKEN_URL = STRAVA_BASE_URL + "oauth/deauthorize"
+
+
+# --- Support functions ---
+
+def get_activities(auth, page=1):
+    access_token = auth["access_token"]
+    response = httpx.get(
+        url=f"{STRAVA_BASE_URL}/athlete/activities",
+        params={
+            "page": page,
+        },
+        headers={
+            "Authorization": f"Bearer {access_token}",
+        },
+    )
+
+    return response.json()
 
 # --- Main Program ---
 
@@ -67,3 +85,7 @@ else:
         stravaOauth2Session.revoke_token(token)
         del st.session_state['token']
         st.rerun()
+
+    # Now, we can get the data. For instance, let's get the activities of the athlete
+    activities = get_activities(st.session_state['token'])
+    st.write(activities)
