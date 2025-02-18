@@ -55,7 +55,7 @@ else:
     token = st.session_state['token']
     #st.json(token)
 #    st.write(token)
-    st.write("You are authorized until " + token['expires_at'])
+    st.write("You are authorized until " + str(token['expires_at']))
     st.write(token['athlete']['firstname'] + " " + token['athlete']['lastname'])
     if st.button("Refresh Token"):
         st.write("fila 4")
