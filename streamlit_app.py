@@ -44,7 +44,7 @@ if 'token' not in st.session_state:
     result = stravaOauth2Session.authorize_button(name="Authorize", 
                                                   redirect_uri=STRAVA_REDIRECT_URL, 
                                                   scope=STRAVA_SCOPE,
-                                                  extras_params={"approval_prompt":"force"})
+                                                  extras_params={"approval_prompt":"auto"})
     if result and 'token' in result:
         st.write(result)
         # If authorization successful, save token in session state
