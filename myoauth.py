@@ -2,7 +2,7 @@ import os
 import streamlit.components.v1 as components
 import asyncio
 import streamlit as st
-from httpx_oauth.oauth2 import OAuth2, OAuth2ClientAuthMethod
+from httpx_oauth.oauth2 import OAuth2, OAuth2Token, GetAccessTokenError, OAuth2ClientAuthMethod
 import base64
 import time
 import uuid
@@ -15,6 +15,7 @@ _RELEASE = False
 # use streamlit run __init__.py --server.enableCORS=false to run the local dev server
 _RELEASE = True
 
+
 if not _RELEASE:
   _authorize_button = components.declare_component(
     "authorize_button",
@@ -25,6 +26,28 @@ else:
   build_dir = os.path.join(parent_dir, "front")
   _authorize_button = components.declare_component("authorize_button", path=build_dir)
 
+async def get_access_token(self, code, client_id, client_secret, access_token_endpoint) -> OAuth2Token:
+
+    async with self.get_httpx_client() as client:
+        data = {
+            "grant_type": "authorization_code",
+            "code": code,
+            "client_id": client_id,
+            "client_secret": client_secret
+        }
+
+        request, auth = self.build_request(
+            client,
+            "POST",
+            access_token_endpoint,
+            auth_method=self.token_endpoint_auth_method,
+            data=data,
+        )
+        response = await self.send_request(
+            client, request, auth, exc_class=GetAccessTokenError
+        )
+        data = self.get_json(response, exc_class=GetAccessTokenError)
+        return OAuth2Token(data)
 
 class StreamlitOauthError(Exception):
   """
@@ -87,7 +110,7 @@ class OAuth2Component:
       extras_params=extras_params
     ))
 
-    st.write(f'generated authorize request: {authorize_request}')
+    #st.write(f'generated authorize request: {authorize_request}')
 
     result = _authorize_button(
       authorization_url=authorize_request,
@@ -99,7 +122,7 @@ class OAuth2Component:
       use_container_width=use_container_width,
       auto_click=auto_click,
     )
-    st.write(f'result: {result}')
+    #st.write(f'result: {result}')
 
     if result:
       try:

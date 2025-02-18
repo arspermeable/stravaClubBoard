@@ -35,7 +35,9 @@ stravaOauth2Session = OAuth2Component(STRAVA_CLIENT_ID,
                                       STRAVA_AUTHORIZE_URL, 
                                       STRAVA_TOKEN_URL, 
                                       STRAVA_REFRESH_TOKEN_URL, 
-                                      STRAVA_REVOKE_TOKEN_URL)
+                                      STRAVA_REVOKE_TOKEN_URL,
+                                      token_endpoint_auth_method = "client_secret_post",
+                                      revocation_endpoint_auth_method = "client_secret_post")
 
 stravaOauth2 = OAuth2(STRAVA_CLIENT_ID,
                       STRAVA_CLIENT_SECRET,
@@ -52,7 +54,7 @@ st.write(auth_url)
 result = stravaOauth2Session.authorize_button(name="Authorize", 
                         redirect_uri=STRAVA_REDIRECT_URL, 
                         scope=STRAVA_SCOPE,
-                        extras_params={"approval_prompt":"auto"})
+                        extras_params={"approval_prompt":"force"})
 
 blocked_code = '''
 # Check if token exists in session state
