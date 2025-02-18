@@ -1,4 +1,5 @@
 import streamlit as st
+from st_files_connection import FilesConnection
 from streamlit_oauth import OAuth2Component
 import httpx
 
@@ -85,6 +86,10 @@ else:
         stravaOauth2Session.revoke_token(token)
         del st.session_state['token']
         st.rerun()
+
+    # save the token to cloud storage
+ #   conn = st.connection('gcs', type=FilesConnection)
+ #   df = conn.write  ("efr-assets/runners/runner.json", input_format="csv", ttl=600)
 
     # Now, we can get the data. For instance, let's get the activities of the athlete
     activities = get_activities(st.session_state['token'])
