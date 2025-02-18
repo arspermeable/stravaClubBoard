@@ -40,11 +40,11 @@ stravaOauth2Session = OAuth2Component(STRAVA_CLIENT_ID,
 # Check if token exists in session state
 if 'token' not in st.session_state:
     # If not, show authorize button
+    st.write("You are not authorized. Press button to proceed.")
     result = stravaOauth2Session.authorize_button(name="Authorize", 
                                                   redirect_uri=STRAVA_REDIRECT_URL, 
                                                   scope=STRAVA_SCOPE,
                                                   extras_params={"approval_prompt":"force"})
-    st.write("fila 1")
     if result and 'token' in result:
         st.write(result)
         # If authorization successful, save token in session state
