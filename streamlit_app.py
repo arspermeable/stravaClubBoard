@@ -58,8 +58,12 @@ else:
     st.write("You are authorized until " + str(token['expires_at']))
     st.write(token['athlete']['firstname'] + " " + token['athlete']['lastname'])
     if st.button("Refresh Token"):
-        st.write("fila 4")
         # If refresh token button is clicked, refresh the token
         token = stravaOauth2Session.refresh_token(token)
         st.session_state.token = token
+        st.rerun()
+    if st.button("Revoke Token"):
+        # If revoke token button is clicked, refresh the token
+        stravaOauth2Session.revoke_token(token)
+        st.session_state.token = None
         st.rerun()
