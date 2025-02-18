@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_oauth import OAuth2Component
-#from myoauth import OAuth2Component
+import httpx
 
 #STRAVA_CLIENT_ID = st.secrets.strava.client_id
 #STRAVA_CLIENT_SECRET = st.secrets.strava.client_secret
